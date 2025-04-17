@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fake News Detector</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+      width: 300px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #333;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #444;
+      text-align: center;
+    }
+  </style>
+  <script src="popup.js" defer></script>
+</head>
+<body>
+  <h1>Fake News Detector</h1>
+  <button id="checkNews">Check Article</button>
+  <p id="result"></p>
+</body>
+</html>
