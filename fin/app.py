@@ -47,13 +47,16 @@ def extract_embeddings(text: str):
 
 @app.post("/predict")
 async def predict(news_item: NewsItem):
- input_text = preprocess_input(news_item.title + " " + news_item.text)
- #input_text = preprocess_input(news_item.text)
- if len(input_text.split()) < 10:
-  raise HTTPException(status_code=400, detail="Text is too short for prediction")
- 
- embeddings = extract_embeddings(input_text)
- prediction = lgbm_model.predict(embeddings) > 0.5
- result = "Fake" if prediction else "Real"
- 
- return {"prediction": result}
+    input_text = preprocess_input(news_item.title + " " + news_item.text)
+    if len(input_text.split()) < 10:
+        raise HTTPException(status_code=400, detail="Text is too short for prediction")
+    
+    embeddings = extract_embeddings(input_text)
+    proba = float(lgbm_model.predict(embeddings))  # type: ignore # Ensure it's a float, not numpy array
+    prediction = "Fake" if proba > 0.5 else "Real"
+    confidence = int(proba * 100) if proba > 0.5 else int((1 - proba) * 100)
+    
+    return {
+        "prediction": prediction,
+        "confidence": confidence
+    }
